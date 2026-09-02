@@ -4,9 +4,9 @@ from manim_voiceover.services.gtts import GTTSService
 
 class BernoulliAnalogyAndMistakes(VoiceoverScene):
     def construct(self):
-        # ---------------------------------------------------------
+        
         # COLOR PALETTE & ENVIRONMENT SETUP
-        # ---------------------------------------------------------
+        
         BG_COLOR = "#0B0E14"
         NEON_GREEN = "#39FF14"
         ICE_CYAN = "#00E5FF"
@@ -16,9 +16,9 @@ class BernoulliAnalogyAndMistakes(VoiceoverScene):
         self.camera.background_color = BG_COLOR
         self.set_speech_service(GTTSService(lang="en"))
 
-        # ---------------------------------------------------------
-        # BEAT 37: The Recap Split Screen
-        # ---------------------------------------------------------
+        
+        #  37: The Recap Split Screen
+        
         lever_recap = Line(LEFT*1.5, RIGHT*1.5, color=WHITE).shift(LEFT*3)
         fulcrum_recap = Triangle(color=YELLOW).scale(0.2).next_to(lever_recap, DOWN, buff=0)
         parabola_axes = Axes(x_range=[0, 1, 0.5], y_range=[0, 0.3, 0.1], x_length=3, y_length=2).shift(RIGHT*3)
@@ -34,9 +34,9 @@ class BernoulliAnalogyAndMistakes(VoiceoverScene):
                 run_time=max(0.1, tracker.duration)
             )
 
-        # ---------------------------------------------------------
-        # BEAT 38: Transition to Real World
-        # ---------------------------------------------------------
+        
+        #  38: Transition to Real World
+        
         real_world_text = Text("The Real World", font_size=60, color=ORANGE)
         
         with self.voiceover(text="But to really cement this intuition, we need to bring it down to earth with a real-world analogy.") as tracker:
@@ -50,9 +50,9 @@ class BernoulliAnalogyAndMistakes(VoiceoverScene):
                 run_time=max(0.1, tracker.duration * 0.6)
             )
 
-        # ---------------------------------------------------------
-        # BEAT 39: Basketball Analogy
-        # ---------------------------------------------------------
+        
+        #  39: Basketball Analogy
+        
         basketball = Circle(radius=0.8, color=ORANGE, fill_opacity=0.8)
         lines = VGroup(
             Line(UP*0.8, DOWN*0.8, color=BG_COLOR),
@@ -76,9 +76,9 @@ class BernoulliAnalogyAndMistakes(VoiceoverScene):
                 run_time=max(0.1, tracker.duration * 0.7)
             )
 
-        # ---------------------------------------------------------
-        # BEAT 40: Beginner Stats p = 0.2
-        # ---------------------------------------------------------
+        
+        #  40: Beginner Stats p = 0.2
+        
         p_stat = MathTex(r"p = 0.2", font_size=64, color=WHITE).next_to(ball_group, UP, buff=0.8)
 
         with self.voiceover(text="If you are a total beginner, maybe your chance of making it is only twenty percent. So, p equals 0.2.") as tracker:
@@ -90,9 +90,9 @@ class BernoulliAnalogyAndMistakes(VoiceoverScene):
                 run_time=max(0.1, tracker.duration)
             )
 
-        # ---------------------------------------------------------
-        # BEAT 41: Expected Value Calculation
-        # ---------------------------------------------------------
+        
+        #  41: Expected Value Calculation
+        
         ev_calc = MathTex(r"\mathbb{E}[X] = 0.2", font_size=52, color=NEON_GREEN).next_to(p_stat, RIGHT, buff=1)
 
         with self.voiceover(text="Your expected value for a single shot is just 0.2 points. But what about the variance?") as tracker:
@@ -102,9 +102,9 @@ class BernoulliAnalogyAndMistakes(VoiceoverScene):
                 run_time=max(0.1, tracker.duration)
             )
 
-        # ---------------------------------------------------------
-        # BEAT 42: Variance Calculation
-        # ---------------------------------------------------------
+        
+        #  42: Variance Calculation
+        
         var_calc = MathTex(r"\text{Var}(X) = 0.2 \times 0.8 = 0.16", font_size=52, color=ICE_CYAN).next_to(ev_calc, DOWN, buff=0.5)
 
         with self.voiceover(text="Let's plug it in: 0.2 times its complement, 0.8, gives a variance of 0.16. Pretty small.") as tracker:
@@ -113,9 +113,9 @@ class BernoulliAnalogyAndMistakes(VoiceoverScene):
                 run_time=max(0.1, tracker.duration)
             )
 
-        # ---------------------------------------------------------
-        # BEAT 43: Predictable = Low Variance
-        # ---------------------------------------------------------
+        
+        #  43: Predictable = Low Variance
+        
         predictable_text = Text("Predictable       Low Variance", font_size=36, color=ICE_CYAN).next_to(var_calc, DOWN, buff=1)
 
         with self.voiceover(text="Because you are consistently missing, your outcome is actually highly predictable. Low variance.") as tracker:
@@ -125,9 +125,9 @@ class BernoulliAnalogyAndMistakes(VoiceoverScene):
                 run_time=max(0.1, tracker.duration)
             )
 
-        # ---------------------------------------------------------
-        # BEAT 44: The Common Mistake Trap
-        # ---------------------------------------------------------
+        
+        #  44: The Common Mistake Trap
+        
         safe_bet = Text("50/50 is a Safe Bet", font_size=64, color=WHITE)
         
 
@@ -146,9 +146,9 @@ class BernoulliAnalogyAndMistakes(VoiceoverScene):
             )
             self.wait(1)
 
-        # ---------------------------------------------------------
-        # BEAT 45: Climbing to the Peak
-        # ---------------------------------------------------------
+        
+        #  45: Climbing to the Peak
+        
         axes = Axes(x_range=[0, 1, 0.25], y_range=[0, 0.3, 0.1], x_length=7, y_length=4)
         curve = axes.plot(lambda x: x * (1 - x), color=WHITE)
         red_dot = Dot(axes.c2p(0.2, 0.16), color=RED_ALERT).scale(1.5)
@@ -163,9 +163,9 @@ class BernoulliAnalogyAndMistakes(VoiceoverScene):
                 run_time=max(0.1, tracker.duration)
             )
 
-        # ---------------------------------------------------------
-        # BEAT 46: Peak of the Parabola
-        # ---------------------------------------------------------
+        
+        #  46: Peak of the Parabola
+        
         peak_pos = axes.c2p(0.5, 0.25)
         
         with self.voiceover(text="At p equals 0.5, your variance hits 0.25—the absolute peak of our curve.") as tracker:
@@ -174,9 +174,9 @@ class BernoulliAnalogyAndMistakes(VoiceoverScene):
                 run_time=max(0.1, tracker.duration)
             )
 
-        # ---------------------------------------------------------
-        # BEAT 47: Maximum Chaos
-        # ---------------------------------------------------------
+        
+        #  47: Maximum Chaos
+        
         chaos_text = Text("Maximum Chaos", font_size=48, color=RED_ALERT).next_to(red_dot, UP, buff=0.5)
         shockwave = Circle(radius=0.1, color=RED_ALERT).move_to(peak_pos)
 
@@ -190,9 +190,9 @@ class BernoulliAnalogyAndMistakes(VoiceoverScene):
                 run_time=max(0.1, tracker.duration * 0.6)
             )
 
-        # ---------------------------------------------------------
-        # BEAT 48: Predictability is Safety
-        # ---------------------------------------------------------
+        
+        #  48: Predictability is Safety
+        
         safe_dots = VGroup(
             Dot(axes.c2p(0, 0), color=ICE_CYAN).scale(2),
             Dot(axes.c2p(1, 0), color=ICE_CYAN).scale(2)
