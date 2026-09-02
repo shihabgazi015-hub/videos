@@ -19,7 +19,7 @@ class BernoulliToBinomial(VoiceoverScene):
         config.background_color = C_BG
 
         # ==========================================
-        # BEAT 49: The Single Trial
+        #  49: The Single Trial
         # ==========================================
         bar = Line(LEFT * 1.5, RIGHT * 1.5, color=WHITE)
         fulcrum = Triangle(fill_opacity=1, color=C_YELLOW).scale(0.2).next_to(bar, DOWN)
@@ -36,7 +36,7 @@ class BernoulliToBinomial(VoiceoverScene):
             self.play(FadeOut(lever), FadeOut(circle_n1), FadeOut(label_n1), run_time=1)  # 7s → 8s ✅
 
         # ==========================================
-        # BEAT 50: Duplication
+        #  50: Duplication
         # ==========================================
         with self.voiceover(text="But what happens when we don't just flip one coin? What happens when we repeat this game over and over?") as tracker:
             levers_with_labels = VGroup()
@@ -52,7 +52,7 @@ class BernoulliToBinomial(VoiceoverScene):
 
 
         # ==========================================
-        # BEAT 51: Branching Tree
+        #  51: Branching Tree
         # ==========================================
         with self.voiceover(text="As we add trials, a branching tree of possible futures explodes exponentially...") as tracker:
             tree_group = VGroup()
@@ -76,7 +76,7 @@ class BernoulliToBinomial(VoiceoverScene):
             self.play(FadeIn(tree_group), run_time=tracker.duration)
 
         # ==========================================
-        # BEAT 52: Galton Board Morph
+        #  52: Galton Board Morph
         # ==========================================
         with self.voiceover(text="...forming a physical pegboard of probability known as a Galton Board.") as tracker:
             pegs = VGroup()
@@ -89,7 +89,7 @@ class BernoulliToBinomial(VoiceoverScene):
             self.play(ReplacementTransform(tree_group, pegs), run_time=tracker.duration)
 
         # ==========================================
-        # BEAT 53: Single Orb Drop
+        #  53: Single Orb Drop
         # ==========================================
         with self.voiceover(text="Every single peg represents one Bernoulli trial—a coin toss forcing a ball to bounce left or right.") as tracker:
             orb = Dot(point=[0, 3.2, 0], color=C_YELLOW, radius=0.12)
@@ -104,7 +104,7 @@ class BernoulliToBinomial(VoiceoverScene):
                 self.play(orb.animate.move_to(pt), run_time=(tracker.duration - 0.5) / len(bounce_path), rate_func=linear)
 
         # ==========================================
-        # BEAT 54: The Cascade
+        #  54: The Cascade
         # ==========================================
         with self.voiceover(text="When thousands of these individual binary decisions happen simultaneously...") as tracker:
             self.play(FadeOut(orb), run_time=0.5)
@@ -126,7 +126,7 @@ class BernoulliToBinomial(VoiceoverScene):
             self.play(FadeOut(particles), run_time=0.5)
 
         # ==========================================
-        # BEAT 55: The Histogram
+        #  55: The Histogram
         # ==========================================
         with self.voiceover(text="...the chaotic individual paths stack up into an amazingly predictable shape.") as tracker:
             hist_heights = [0.2, 0.8, 2.2, 3.8, 2.2, 0.8, 0.2]
@@ -147,7 +147,7 @@ class BernoulliToBinomial(VoiceoverScene):
             self.play(AnimationGroup(*animations, lag_ratio=0.1), run_time=tracker.duration - 0.5)
 
         # ==========================================
-        # BEAT 56: The Binomial Distribution
+        #  56: The Binomial Distribution
         # ==========================================
         with self.voiceover(text="This is the Binomial distribution—the sum of n independent Bernoulli coin flips.") as tracker:
             curve = FunctionGraph(
@@ -160,7 +160,7 @@ class BernoulliToBinomial(VoiceoverScene):
             self.play(Write(formula_dist), run_time=tracker.duration / 2)
 
         # ==========================================
-        # BEAT 57: Expectation & Variance
+        #  57: Expectation & Variance
         # ==========================================
         with self.voiceover(text="And because expectation and variance add up cleanly, its center and spread are completely determined by our single coin.") as tracker:
             eq1 = MathTex(r"\mathbb{E}[X] = n", r"p")
@@ -176,7 +176,7 @@ class BernoulliToBinomial(VoiceoverScene):
             self.play(Write(eq2), run_time=tracker.duration / 2)
 
         # ==========================================
-        # BEAT 58: Returning to Tech
+        #  58: Returning to Tech
         # ==========================================
         with self.voiceover(text="This bridges the gap directly back to where we started...") as tracker:
             self.play(
@@ -201,7 +201,7 @@ class BernoulliToBinomial(VoiceoverScene):
             self.play(FadeIn(network), run_time=tracker.duration - 1)
 
         # ==========================================
-        # BEAT 59: Data Pulses
+        #  59: Data Pulses
         # ==========================================
         with self.voiceover(text="...showing that every complex neural network or data pipeline is just millions of simple coin flips working together.") as tracker:
             pulses = VGroup(*[
@@ -213,7 +213,7 @@ class BernoulliToBinomial(VoiceoverScene):
             self.play(FadeOut(pulses), run_time=0.5)
 
         # ==========================================
-        # BEAT 60: The Atom of Uncertainty
+        #  60: The Atom of Uncertainty
         # ==========================================
         with self.voiceover(text="The humble coin flip isn't just basic math—it is the fundamental atom of uncertainty across the modern digital world.") as tracker:
             wireframe_coin = VGroup(
