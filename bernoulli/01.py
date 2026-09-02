@@ -5,9 +5,9 @@ import random
 
 class BernoulliHook(VoiceoverScene):
     def construct(self):
-        # ---------------------------------------------------------
+        
         # ENVIRONMENT & THEME SETUP
-        # ---------------------------------------------------------
+        
         BG_COLOR = "#0B0E14"
         NEON_GREEN = "#39FF14"
         ICE_CYAN = "#00E5FF"
@@ -20,16 +20,16 @@ class BernoulliHook(VoiceoverScene):
             GTTSService(lang="en")
         )
 
-        # ---------------------------------------------------------
-        # SCENE BEATS
-        # ---------------------------------------------------------
         
-        # BEAT 1: The initial coin
+        # SCENE S
+        
+        
+        #  1: The initial coin
         coin = Circle(radius=1.5, color=NEON_GREEN).set_fill(NEON_GREEN, opacity=0.1)
         with self.voiceover(text="Sometimes, math and physics conspire in ways that just feel too good to be true.") as tracker:
             self.play(Create(coin), run_time=tracker.duration)
 
-        # BEAT 2: Spin and vectors
+        #  2: Spin and vectors
         arrow_up = Arrow(ORIGIN, UP*2.5, color=NEON_GREEN, stroke_width=6)
         arrow_down = Arrow(ORIGIN, DOWN*2.5, color=ICE_CYAN, stroke_width=6)
         with self.voiceover(text="Consider the act of flipping a coin. It’s the universal symbol of pure randomness.") as tracker:
@@ -40,7 +40,7 @@ class BernoulliHook(VoiceoverScene):
                 run_time=tracker.duration
             )
 
-        # BEAT 3: Split screen 1 and 0
+        #  3: Split screen 1 and 0
         left_text = Text("1", font_size=144, color=NEON_GREEN).shift(LEFT * 3)
         right_text = Text("0", font_size=144, color=ICE_CYAN).shift(RIGHT * 3)
         divider = Line(UP * 4, DOWN * 4, color=WHITE, stroke_opacity=0.5)
@@ -52,7 +52,7 @@ class BernoulliHook(VoiceoverScene):
                 run_time=tracker.duration
             )
 
-        # BEAT 4: Zoom out to geometric grid
+        #  4: Zoom out to geometric grid
         grid_points = VGroup(*[
             Dot(point=[x, y, 0], color=NEON_GREEN if (x+y)%2==0 else ICE_CYAN, radius=0.08)
             for x in range(-6, 7) for y in range(-4, 5)
@@ -63,7 +63,7 @@ class BernoulliHook(VoiceoverScene):
                 run_time=tracker.duration
             )
 
-        # BEAT 5: Neural network abstraction
+        #  5: Neural network abstraction
         connections = VGroup()
         for _ in range(40):
             p1 = random.choice(grid_points)
@@ -77,7 +77,7 @@ class BernoulliHook(VoiceoverScene):
                 run_time=tracker.duration
             )
 
-        # BEAT 6: Binary code stream
+        #  6: Binary code stream
         binary_stream = VGroup(*[
             Text(str(random.choice([0, 1])), font="Monospace", color=NEON_GREEN, font_size=24)
             .set_opacity(random.uniform(0.3, 1.0))
@@ -91,7 +91,7 @@ class BernoulliHook(VoiceoverScene):
                 run_time=tracker.duration
             )
 
-        # BEAT 7: Chaos and math symbols
+        #  7: Chaos and math symbols
         math_symbols = VGroup(
             MathTex(r"\sum", color=ICE_CYAN, font_size=96).shift(UP*2 + LEFT*3),
             MathTex(r"\int_0^1", color=NEON_GREEN, font_size=96).shift(DOWN*2 + RIGHT*2),
@@ -105,7 +105,7 @@ class BernoulliHook(VoiceoverScene):
                 run_time=tracker.duration
             )
 
-        # BEAT 8: Collapse to coin
+        #  8: Collapse to coin
         single_coin = Circle(radius=1.2, color=NEON_GREEN).set_fill(NEON_GREEN, opacity=0.2)
         with self.voiceover(text="...of machine intelligence and information theory reduce down to a single, humble coin flip?") as tracker:
             self.play(
@@ -113,7 +113,7 @@ class BernoulliHook(VoiceoverScene):
                 run_time=tracker.duration
             )
 
-        # BEAT 9: Lever and fulcrum
+        #  9: Lever and fulcrum
         lever = Line(LEFT * 3, RIGHT * 3, color=WHITE, stroke_width=4).shift(DOWN * 1.5)
         fulcrum = Triangle(color=ICE_CYAN).scale(0.3).next_to(lever, DOWN, buff=0)
         
@@ -125,7 +125,7 @@ class BernoulliHook(VoiceoverScene):
                 run_time=tracker.duration
             )
 
-        # BEAT 10: Bernoulli formula
+        #  10: Bernoulli formula
         formula = MathTex(r"X \sim \text{Bernoulli}(p)", font_size=64).shift(UP * 2)
         formula[0][8:9].set_color(NEON_GREEN) # Color the 'p'
         
@@ -135,7 +135,7 @@ class BernoulliHook(VoiceoverScene):
                 run_time=tracker.duration
             )
 
-        # BEAT 11: The Variance Parabola
+        #  11: The Variance Parabola
         axes = Axes(x_range=[0, 1, 0.5], y_range=[0, 0.3, 0.1], x_length=6, y_length=3).shift(DOWN * 0.5)
         parabola = axes.plot(lambda x: x * (1 - x), color=NEON_GREEN)
         
@@ -147,7 +147,7 @@ class BernoulliHook(VoiceoverScene):
                 run_time=tracker.duration
             )
 
-        # BEAT 12: Peak highlight
+        #  12: Peak highlight
         peak_dot = Dot(axes.c2p(0.5, 0.25), color=ICE_CYAN).scale(1.5)
         glow = Dot(axes.c2p(0.5, 0.25), color=ICE_CYAN).scale(4).set_opacity(0.3)
         
