@@ -5,9 +5,9 @@ from manim_voiceover.services.gtts import GTTSService
 
 class BernoulliIntroAndBalance(VoiceoverScene):
     def construct(self):
-        # ---------------------------------------------------------
+        
         # COLOR PALETTE & ENVIRONMENT
-        # ---------------------------------------------------------
+        
         BG_COLOR = "#0B0E14"
         NEON_GREEN = "#39FF14"
         ICE_CYAN = "#00E5FF"
@@ -17,9 +17,9 @@ class BernoulliIntroAndBalance(VoiceoverScene):
         # Initialize free TTS service
         self.set_speech_service(GTTSService(lang="en"))
 
-        # ---------------------------------------------------------
-        # BEAT 13: Abstract Formulas & Cross-out
-        # ---------------------------------------------------------
+        
+        #  13: Abstract Formulas & Cross-out
+        
         bad_formula = MathTex(
             r"\mathbb{P}(X=x) = p^x (1-p)^{1-x}", font_size=44, color=WHITE
         ).shift(UP * 0.5)
@@ -37,9 +37,9 @@ class BernoulliIntroAndBalance(VoiceoverScene):
             self.play(Write(bad_formula), run_time=tracker.duration * 0.6)
             self.play(Create(cross_line), run_time=tracker.duration * 0.4)
 
-        # ---------------------------------------------------------
-        # BEAT 14: Fragile Rote Memorization
-        # ---------------------------------------------------------
+        
+        #  14: Fragile Rote Memorization
+        
         rote_text = Text(
             "Fragile Rote Memorization", font_size=36, color=RED_B
         ).next_to(bad_formula, DOWN, buff=0.5)
@@ -49,9 +49,9 @@ class BernoulliIntroAndBalance(VoiceoverScene):
         ) as tracker:
             self.play(FadeIn(rote_text, shift=UP), run_time=tracker.duration)
 
-        # ---------------------------------------------------------
-        # BEAT 15: Spatial & Geometric Discovery
-        # ---------------------------------------------------------
+        
+        #  15: Spatial & Geometric Discovery
+        
         good_text = Text(
             "Active Geometric Discovery", font_size=40, color=NEON_GREEN
         )
@@ -70,9 +70,9 @@ class BernoulliIntroAndBalance(VoiceoverScene):
                 run_time=tracker.duration,
             )
 
-        # ---------------------------------------------------------
-        # BEAT 16: Setup Lever & Outcome Nodes
-        # ---------------------------------------------------------
+        
+        #  16: Setup Lever & Outcome Nodes
+        
         lever = Line(LEFT * 3.5, RIGHT * 3.5, color=WHITE, stroke_width=4).shift(
             DOWN * 1.0
         )
@@ -99,9 +99,9 @@ class BernoulliIntroAndBalance(VoiceoverScene):
                 run_time=tracker.duration,
             )
 
-        # ---------------------------------------------------------
-        # BEAT 17: Probabilities p and 1-p
-        # ---------------------------------------------------------
+        
+        #  17: Probabilities p and 1-p
+        
         p_lbl_0 = MathTex(r"1 - p", font_size=38, color=ICE_CYAN).next_to(
             dot_0, UP, buff=0.3
         )
@@ -116,9 +116,9 @@ class BernoulliIntroAndBalance(VoiceoverScene):
                 Write(p_lbl_0), Write(p_lbl_1), run_time=tracker.duration
             )
 
-        # ---------------------------------------------------------
-        # BEAT 18: Physical Mass Spheres
-        # ---------------------------------------------------------
+        
+        #  18: Physical Mass Spheres
+        
         mass_0 = Circle(
             radius=0.3, color=ICE_CYAN, fill_opacity=0.6
         ).move_to(dot_0.get_center())
@@ -135,9 +135,9 @@ class BernoulliIntroAndBalance(VoiceoverScene):
                 run_time=tracker.duration,
             )
 
-        # ---------------------------------------------------------
-        # BEAT 19: Fulcrum at Center (p = 0.5)
-        # ---------------------------------------------------------
+        
+        #  19: Fulcrum at Center (p = 0.5)
+        
         fulcrum = Polygon(
             ORIGIN,
             LEFT * 0.25 + DOWN * 0.4,
@@ -152,9 +152,9 @@ class BernoulliIntroAndBalance(VoiceoverScene):
         ) as tracker:
             self.play(FadeIn(fulcrum, shift=UP), run_time=tracker.duration)
 
-        # ---------------------------------------------------------
-        # BEAT 20: Biasing Success Mass (p -> 0.75)
-        # ---------------------------------------------------------
+        
+        #  20: Biasing Success Mass (p -> 0.75)
+        
         with self.voiceover(
             text="If our coin is fair, it balances right in the middle. But if we bias it toward success..."
         ) as tracker:
@@ -164,9 +164,9 @@ class BernoulliIntroAndBalance(VoiceoverScene):
                 run_time=tracker.duration,
             )
 
-        # ---------------------------------------------------------
-        # BEAT 21: Fulcrum Glides to Center of Mass (0.75 position)
-        # ---------------------------------------------------------
+        
+        #  21: Fulcrum Glides to Center of Mass (0.75 position)
+        
         target_fulcrum_pos = lever.point_from_proportion(0.75) + DOWN * 0.2
 
         with self.voiceover(
@@ -177,9 +177,9 @@ class BernoulliIntroAndBalance(VoiceoverScene):
                 run_time=tracker.duration,
             )
 
-        # ---------------------------------------------------------
-        # BEAT 22: Center of Gravity = Expected Value
-        # ---------------------------------------------------------
+        
+        #  22: Center of Gravity = Expected Value
+        
         cog_title = Text(
             "Center of Gravity = Expected Value", font_size=32, color=YELLOW
         ).to_edge(UP, buff=0.8)
@@ -201,9 +201,9 @@ class BernoulliIntroAndBalance(VoiceoverScene):
                 run_time=tracker.duration,
             )
 
-        # ---------------------------------------------------------
-        # BEAT 23: Expectation Formula Derivation
-        # ---------------------------------------------------------
+        
+        #  23: Expectation Formula Derivation
+        
         ev_formula = MathTex(
             r"\mathbb{E}[X] = 0(1-p) + 1(p) = p",
             font_size=42,
@@ -215,9 +215,9 @@ class BernoulliIntroAndBalance(VoiceoverScene):
         ) as tracker:
             self.play(Write(ev_formula), run_time=tracker.duration)
 
-        # ---------------------------------------------------------
-        # BEAT 24: Teasing Rotational Motion / Variance
-        # ---------------------------------------------------------
+        
+        #  24: Teasing Rotational Motion / Variance
+        
         scene_group = VGroup(
             lever,
             mass_0,
