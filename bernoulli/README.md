@@ -1,7 +1,7 @@
 # How Coin ① Flips Power Modern AI: The Bernoulli Distribution
 
 <a href="https://youtube.com" target="_blank">
-  <img src="https://i9.ytimg.com/vi/_lMnfZlsALY/mqdefault_custom_2.jpg?v=6a94cf10&sqp=CPzT4dQG&rs=AOn4CLBQOHVQPkGVVkgbhyb_rBo7n9Nkmw" width="300vw" style="border-radius: 800px; box-shadow: 0 4px 8px rgba(155, 204, 237, 0.8);"/>
+  <img src="https://github.com/shihabgazi015-hub/videos/blob/cb5f85e60e3e75079a02670722dddc8b5fe44e46/bernoulli/Bernoulli.png" width="300vw" style="border-radius: 800px; box-shadow: 0 4px 8px rgba(155, 204, 237, 0.8);"/>
 </a>
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-brightgreen?style=for-the-badge&logo=python)](https://www.python.org/)
