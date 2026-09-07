@@ -1,0 +1,281 @@
+\documentclass[12pt]{article}
+
+% --- Packages ---
+\usepackage{amsmath, amssymb}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{pgfplots}
+\usepackage{parskip}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\hypersetup{
+    pdftitle={Bernoulli}
+}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\setdefaultlanguage[numerals=bengali]{bengali} 
+\setotherlanguage{english}
+
+\newfontfamily\bengalifont[Script=Bengali]{Kalpurush}
+
+% --- Bengali Font Support (Requires XeLaTeX / LuaLaTeX) ---
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{bengali}
+\setotherlanguage{english}
+
+% Use system/Overleaf Bengali font
+\newfontfamily\bengalifont[Script=Bengali]{Kalpurush} 
+
+\pgfplotsset{compat=1.18}
+
+% --- Custom Color Definitions ---
+\definecolor{bgdark}{HTML}{1A1C20}     % Dark Background (#1A1C20)
+\definecolor{emerald}{HTML}{2ECC71}    % Emerald Green Headers (#2ECC71)
+\definecolor{purplehl}{HTML}{9B59B6}   % Purple Highlights (#9B59B6)
+\definecolor{goldbox}{HTML}{F1C40F}    % Gold Formula Boxes (#F1C40F)
+\definecolor{textlight}{HTML}{F8F9FA}  % Off-white text for dark background contrast
+
+% --- Global Page Styling ---
+\pagecolor{bgdark}
+\color{textlight}
+
+% --- Section & Subsection Styling ---
+\titleformat{\section}{\color{emerald}\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\color{emerald}\large\bfseries}{\thesubsection}{1em}{}
+
+% --- Custom Highlight & Formula Box Commands ---
+\newcommand{\purplehighlight}[1]{\textcolor{purplehl}{\textbf{#1}}}
+
+\newtcolorbox{goldformula}{
+    colback=goldbox!10!bgdark, 
+    colframe=goldbox,
+    coltext=textlight,
+    boxrule=1.5pt,
+    arc=4pt,
+    top=6pt,
+    bottom=6pt
+}
+
+% --- Document Metadata ---
+\title{\color{emerald}\Huge\bfseries বার্নৌলি ডিস্ট্রিবিউশন}
+\author{\color{purplehl}লেখক: মুক্তাদির শিহাব}
+
+\begin{document}
+\date{}
+\maketitle
+
+\begin{figure}[htbp]
+    \centering
+    
+    \begin{subfigure}[b]{0.45\textwidth} 
+        \centering
+        \begin{tikzpicture}[scale=0.8]
+            \begin{axis}[
+                ybar,
+                ymin=0, ymax=1,
+                xmin=-0.5, xmax=1.5,
+                xtick={0,1},
+                ytick={0, 0.2, 0.4, 0.6, 0.8, 1.0},
+                xlabel={ফলাফল ($x$)},
+                ylabel={সম্ভাবনা ($P(X=x)$)},
+                xlabel style={at={(axis description cs:0.5,-0.15)}, anchor=north},
+                ylabel style={at={(axis description cs:-0.15,0.5)}, anchor=south},
+                nodes near coords,
+                bar width=0.4cm,
+                grid=major,
+                title={বার্নৌলি PMF ($p = 0.6$)}
+            ]
+                \addplot[fill=emerald!60, draw=emerald] coordinates {(0,0.4) (1,0.6)};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{ডিসক্রিট বার্নৌলি PMF।}
+        \label{subfig:bernoulli_pmf}
+    \end{subfigure}
+    \hfill 
+    \begin{subfigure}[b]{0.45\textwidth} 
+        \centering
+        \begin{tikzpicture}[scale=0.8]
+            \begin{axis}[
+                axis lines = middle,
+                xlabel={সফলতার সম্ভাবনা ($p$)},
+                ylabel={ভেদাঙ্ক $\sigma^2$},
+                xlabel style={at={(axis description cs:0.5,-0.18)}, anchor=north},
+                ylabel style={at={(axis description cs:-0.15,0.5)}, anchor=south, rotate=90},
+                xmin=0, xmax=1.1, 
+                ymin=0, ymax=0.3,
+                xtick={0, 0.5, 1},
+                ytick={0, 0.25},
+                grid=major,
+                title={বার্নৌলি ভেদাঙ্ক প্যারাবোলা}
+            ]
+                \addplot [
+                    domain=0:1, 
+                    samples=100, 
+                    color=goldbox, 
+                    thick
+                ] {x*(1-x)};
+                
+                \node[label={90:{(0.25)}},circle,fill,inner sep=1.5pt] at (axis cs:0.5,0.25) {};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{$p=0.5$ বিন্দুতে শীর্ষমান।}
+        \label{subfig:bernoulli_parabola}
+    \end{subfigure}
+
+    \caption{বার্নৌলি ডিস্ট্রিবিউশনের Probability Mass Function বনাম বার্নৌলি প্যারাবোলা।}
+\end{figure}
+
+\newpage
+\section*{১ ভূমিকা: অনিশ্চয়তার পরমাণু (The Atom of Uncertainty)}
+তথ্য তত্ত্ব (information theory) এবং পরিসংখ্যান বিদ্যার (statistical mechanics) গোড়ায় রয়েছে মুদ্রা নিক্ষেপের (coin flip) মত সহজ ঘটনা। যদিও এটি সর্বজনীনভাবে বিশুদ্ধ দৈবতার প্রতীক হিসেবে পরিচিত, এটিকে কল্পনা করা যেতে পারে একটি দ্বিমুখী পথ হিসেবে, যেখানে মহাবিশ্ব সফলতা এবং ব্যর্থতার মধ্যে বিভক্ত হয়, তথাপি এটি অত্যন্ত জটিল আধুনিক সিস্টেমগুলোর মৌলিক ভিত্তিপ্রস্তর।
+
+পরিসংখ্যানের ভাষায়, এই একক দ্বিমুখী ঘটনাটি আনুষ্ঠানিকভাবে \purplehighlight{Bernoulli Random Variable} হিসেবে সংজ্ঞায়িত করা হয়, যাকে $X \in \{0, 1\}$ দ্বারা প্রকাশ করা হয়। এর প্রবাবিলিটি মাস ফাংশন (probability mass function) অত্যন্ত চমৎকারভাবে সহজ:
+\begin{align*}
+P(X = 1) &= p \\
+P(X = 0) &= 1 - p
+\end{align*}
+
+এই সহজ দ্বিমুখী পরীক্ষাটি (binary trial) উন্নত মেশিন ইন্টেলিজেন্সের তাত্ত্বিক ভিত্তি। একটি দক্ষ অ্যালগরিদম বিশাল আকারের ভিডিও ফাইল কম্প্রেস করছে কিংবা একটি নিউরাল নেটওয়ার্ক প্রাঞ্জল গদ্য তৈরি করছে—এই সব জটিল প্রক্রিয়া দিনশেষে লক্ষ লক্ষ স্বতন্ত্র Bernoulli সিদ্ধান্তের সমন্বিত কার্যক্রমের ওপরই নির্ভরশীল। আধুনিক কৃত্রিম বুদ্ধিমত্তায় (Artificial Intelligence), বাইনারি ক্লাসিফিকেশন মডেলের আউটপুট লেয়ার সম্পূর্ণভাবে এই পারমাণবিক নীতির ওপর ভিত্তি করে পরিচালিত হয়।
+
+
+\subsection*{প্রত্যাশিত মান (Expected Value) এবং ভেদাঙ্ক (Variance)-এর সংজ্ঞা}
+
+\subsection*{Expected Value (প্রত্যাশিত মান)}
+
+একটি দৈব চলকের (random variable) \textbf{Expected Value} (বা গড়) হলো একই পরীক্ষার বারবার পুনরাবৃত্তির দীর্ঘমেয়াদী গড় মান। এটি সম্ভাবনা বণ্টনের (probability distribution) ভরকেন্দ্রকে নির্দেশ করে।
+
+\paragraph{সংজ্ঞা:}
+একটি সম্ভাবনা স্থান $(\Omega, \mathcal{F}, P)$-এ সংজ্ঞায়িত দৈব চলক $X$-এর জন্য, প্রত্যাশিত মানকে $\mathbb{E}[X]$ বা $\mu$ দ্বারা চিহ্নিত করা হয়, যা হলো সম্ভাবনা পরিমাপ $P$-এর সাপেক্ষে $X$-এর সমাকলন (integral):
+\[
+\mathbb{E}[X] = \int_{\Omega} X \, dP
+\]
+
+দৈব চলকের প্রকৃতির ওপর নির্ভর করে, এই সংজ্ঞায় দুটি প্রধান গাণিতিক রূপ দেখা যায়:
+\begin{itemize}
+    \item \textbf{Discrete Random Variable (ডিসক্রিট দৈব চলক):} যদি $X$ একটি প্রবাবিলিটি মাস ফাংশন (PMF) $p(x_i)$ বিশিষ্ট ডিসক্রিট দৈব চলক হয়, তবে এর প্রত্যাশিত মান হলো সকল সম্ভাব্য মানের ভারযুক্ত সমষ্টি (weighted sum):
+    \[
+    \mathbb{E}[X] = \sum_{i} x_i \cdot p(x_i)
+    \]
+    (শর্ত: প্রত্যাশিত মানের অস্তিত্ব থাকবে যদি ধারাটির সমষ্টি পরমভাবে অভিসারী হয়, অর্থাৎ $\sum_{i} |x_i| p(x_i) < \infty$)।
+    
+    \item \textbf{Continuous Random Variable (কন্টিনিউয়াস দৈব চলক):} যদি $X$ একটি প্রবাবিলিটি ডেনসিটি ফাংশন (PDF) $f(x)$ বিশিষ্ট কন্টিনিউয়াস দৈব চলক হয়, তবে প্রত্যাশিত মান হলো সমগ্র বাস্তব রেখার ওপর সমাকলন (integral):
+    \[
+    \mathbb{E}[X] = \int_{-\infty}^{\infty} x \cdot f(x) \, dx
+    \]
+    (শর্ত: প্রত্যাশিত মানের অস্তিত্ব থাকবে যদি $\int_{-\infty}^{\infty} |x| f(x) \, dx < \infty$ হয়)।
+\end{itemize}
+
+\subsection*{Variance (ভেদাঙ্ক)}
+
+\textbf{Variance} (ভেদাঙ্ক) তার প্রত্যাশিত মানের চারপাশে একটি দৈব চলকের বিচ্যুতি বা বিস্তার পরিমাপ করে। এটি নির্দেশ করে যে দৈব চলকের মানগুলো গড় থেকে কতটা পরিবর্তিত বা বিচ্যুতিকালীন হয়।
+
+\paragraph{সংজ্ঞা:}
+ধরা যাক $X$ একটি সসীম প্রত্যাশিত মান $\mu = \mathbb{E}[X]$ বিশিষ্ট দৈব চলক। $X$-এর ভেদাঙ্ক, যাকে $\text{Var}(X)$ বা $\sigma^2$ দ্বারা প্রকাশ করা হয়, তা গড় $\mu$ থেকে $X$-এর বর্গীয় বিচ্যুতির (squared deviation) প্রত্যাশিত মান হিসেবে সংজ্ঞায়িত:
+\[
+\text{Var}(X) = \mathbb{E}\left[(X - \mathbb{E}[X])^2\right]
+\]
+
+প্রত্যাশার রৈখিকতা (linearity of expectation) ব্যবহার করে, এই সংজ্ঞাকে গণনার সুবিধার্থে প্রায়শই নিম্নরূপ অভেদে সরলীকৃত করা হয়:
+\[
+\text{Var}(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2
+\]
+
+\begin{itemize}
+    \item \textbf{ডিসক্রিট দৈব চলক রূপ:}
+    \[
+    \text{Var}(X) = \sum_{i} (x_i - \mu)^2 \cdot p(x_i)
+    \]
+    
+    \item \textbf{কন্টিনিউয়াস দৈব চলক রূপ:}
+    \[
+    \text{Var}(X) = \int_{-\infty}^{\infty} (x - \mu)^2 \cdot f(x) \, dx
+    \]
+\end{itemize}
+
+\subsection*{মৌলিক পার্থক্যসমূহ}
+\begin{itemize}
+    \item \textbf{মাত্রাগত একক (Dimensional Units):} যদি $X$-এর পরিমাপ মিটারে হয়, তবে Expected Value $\mathbb{E}[X]$-এর একক হবে মিটার, যেখানে Variance $\text{Var}(X)$-এর একক হবে বর্গমিটার ($\text{m}^2$)। বিস্তারের জন্য মূল এককে ফিরে আসতে, বিজ্ঞানীরা ভেদাঙ্কের বর্গমূল নেন, যাকে \textbf{Standard Deviation} (পরিমিত বিচ্যুতি) ($\sigma = \sqrt{\text{Var}(X)}$) বলা হয়।
+    
+    \item \textbf{রৈখিকতা (Linearity):} Expected Value একটি রৈখিক অপারেটর:
+    \[
+    \mathbb{E}[aX + b] = a\mathbb{E}[X] + b
+    \]
+    Variance রৈখিক নয়; চলককে স্কেল করলে স্কেল ফ্যাক্টরটি বর্গ হয়ে যায়:
+    \[
+    \text{Var}(aX + b) = a^2\text{Var}(X)
+    \]
+\end{itemize}
+
+\newpage
+
+\section*{ধারণাগত কাঠামো: ভৌত জ্যামিতি এবং সাম্যধারা}
+পরিসংখ্যানের প্রমিত সূত্রগুলোকে প্রায়শই কয়েকটি স্বেচ্ছাচারী নিয়ম হিসেবে দেখা হয়, কিন্তু প্রকৃতপক্ষে এগুলো ভৌত ভারসাম্য অর্জনের এক অনিবার্য জ্যামিতিক ফলাফল।
+
+\subsection*{ভরকেন্দ্র হিসেবে প্রত্যাশিত মান (Expected Value)}
+বিমূর্ত সম্ভাবনা $p$ এবং $(1-p)$-কে একটি ওজনহীন রডের ওপর রাখা বাস্তব ভৌত ভর হিসেবে বিবেচনা করা যাক। Expected Value, $E[X]$, একটি সহজ ভৌত প্রশ্নের উত্তর দেয়: কোথায় একটি ফলক্রাম (fulcrum) স্থাপন করলে সিস্টেমটি নিখুঁত ভারসাম্যে থাকবে?
+
+\begin{goldformula}
+\begin{equation}
+E[X] = \sum_{x} x \cdot P(x) = 1(p) + 0(1 - p) = p
+\end{equation}
+\end{goldformula}
+
+যদি একটি মুদ্রা নিরপেক্ষ হয় ($p = 0.5$), তবে রডটি ঠিক মাঝখানে সাম্যাবস্থায় থাকে। যদি সিস্টেমটি সফলতার দিকে মারাত্মকভাবে পক্ষপাতদুষ্ট হয় (যেমন $p = 0.9$), তবে ভৌত ভর ঘনীভূত হয় এবং স্থায়িত্ব বজায় রাখার জন্য ফলক্রামটিকে মসৃণভাবে ডানদিকে সরে গিয়ে ঠিক $0.9$ স্থানাঙ্কের নিচে অবস্থান নিতে হয়। গাণিতিক প্রত্যাশিত মান হলো, আক্ষরিক অর্থেই, \purplehighlight{ভৌত ভরকেন্দ্র (physical center of gravity)}।
+
+\subsection*{ঘূর্ণন জড়তা (Rotational Inertia) হিসেবে ভেদাঙ্ক}
+প্রত্যাশিত মান যেখানে পিভট বা কেন্দ্রবিন্দু নির্ধারণ করে, ভেদাঙ্ক নির্ধারণ করে যে ঘোরানোর সময় সিস্টেমটি কীভাবে আচরণ করবে। পরিসংখ্যানে, ভেদাঙ্ক সম্ভাব্য ফলাফলের বিস্তার পরিমাপ করে। শারীরিকভাবে, এটি সরাসরি \purplehighlight{ঘূর্ণন জড়তা (rotational inertia)}-র অনুরূপ—ভারসাম্যপূর্ণ রডটিকে ঘোরাতে কতটা চেষ্টার প্রয়োজন।
+
+\begin{goldformula}
+\begin{equation}
+\text{Var}(X) = E[(X - \mu)^2] = p(1 - p)
+\end{equation}
+\end{goldformula}
+
+\paragraph{\purplehighlight{সর্বোচ্চ বিশৃঙ্খলার অঞ্চল (Zone of Maximum Chaos):}}
+যখন একটি মুদ্রা সম্পূর্ণ নিখুঁত বা নিরপেক্ষ হয় ($p = 0.5$), ভরগুলো সমান হয় এবং কেন্দ্র পিভটের চারপাশে সমানভাবে বণ্টিত থাকে। ভৌত সিস্টেমে উচ্চ জড়তা সরাসরি উচ্চ ভেদাঙ্কের ($0.25$) সাথে সম্পর্কিত। এই বিন্দুটি ভেদাঙ্ক প্যারাবোলার সর্বোচ্চ চূড়াকে নির্দেশ করে, যা ৫০/৫০ সম্ভাবনাকে নিরাপদ বাজি হিসেবে নয়, বরং গাণিতিক \purplehighlight{সর্বোচ্চ বিশৃঙ্খলার অঞ্চল (zone of maximum chaos)} এবং অনিশ্চয়তা হিসেবে চিহ্নিত করে।
+
+বিপরীতে, একটি পক্ষপাতদুষ্ট মুদ্রার ক্ষেত্রে (যেমন $p = 0.9$), প্রায় সমস্ত ভৌত ভর সরাসরি পিভট বিন্দুর ঠিক ওপরে ঘনীভূত থাকে। রডটি ঘোরানো অত্যন্ত সহজ হয়ে ওঠে এবং ভেদাঙ্ক কমে $0.09$-এ পৌঁছায়। এর ফলে ফলাফল অত্যন্ত পূর্বাভাসযোগ্য হয়।
+
+\section*{সিস্টেমের বিস্তৃতি: বার্নৌলি থেকে দ্বিপদী (Binomial)}
+একটি বিচ্ছিন্ন Bernoulli পরীক্ষা একটি একক মুদ্রা নিক্ষেপকে মডেল করলেও, বাস্তব জগতের সিস্টেমগুলো এই ঘটনাগুলোকে একের পর এক শৃঙ্খলিত করে। পরীক্ষার পুনরাবৃত্তি ঘটলে সম্ভাব্য ভবিষ্যতের একটি শাখান্বিত বৃক্ষ সূচকীয়ভাবে বৃদ্ধি পায়, যা সম্ভাবনার একটি ভৌত পেগবোর্ড তৈরি করে—যা \purplehighlight{Galton board} নামে পরিচিত।
+
+Galton বোর্ডের প্রতিটি পেগ একটি স্বতন্ত্র Bernoulli পরীক্ষাকে নির্দেশ করে। যখন হাজার হাজার সিদ্ধান্ত একসাথে ঘটে, তখন বিশৃঙ্খল স্বতন্ত্র পথগুলো একত্রিত হয়ে একটি আশ্চর্যজনকভাবে পূর্বাভাসযোগ্য রূপ নেয়: \purplehighlight{Binomial Distribution}, $B(n, p)$। যেহেতু স্বাধীন ঘটনাগুলোর জন্য প্রত্যাশা এবং ভেদাঙ্ক কঠোরভাবে যোজনীয় (additive), তাই এই জটিল ম্যাক্রোস্কোপিক আকৃতির কেন্দ্র এবং বিস্তার সম্পূর্ণভাবে আমাদের একক অণুবীক্ষণিক মুদ্রা নিক্ষেপের জ্যামিতি দ্বারা নির্ধারিত হয় \cite{feller1968}।
+
+\section*{মেশিন লার্নিং এ প্রয়োগ}
+দৃশ্যমান, জ্যামিতিক রূপক থেকে আনুষ্ঠানিক পরিসংখ্যানগত তত্ত্বে উত্তরণ আধুনিক মেশিন লার্নিং আর্কিটেকচারে নিরবচ্ছিন্ন সংযোগ স্থাপন করে \cite{goodfellow2016}। টেক জায়ান্ট এবং ডেটা বিজ্ঞানীরা বিশ্বমানের ডিজিটাল অবকাঠামো তৈরির জন্য লক্ষ লক্ষ Bernoulli চলককে একসাথে স্তূপীকৃত করেন।
+
+\begin{itemize}
+    \item \purplehighlight{Logistic Regression \& Sigmoid Activation:} বাইনারি ক্লাসিফিকেশনের ভিত্তি Sigmoid ফাংশনের ওপর নির্ভরশীল, যা গতিশীলভাবে $0$ এবং $1$-এর মধ্যে একটি $p$-মান আউটপুট দেয়, যা Bernoulli ডিস্ট্রিবিউশনের প্যারামিটারকে স্পষ্টভাবে সংজ্ঞায়িত করে।
+    \item \purplehighlight{A/B Testing \& Hypothesis Validation:} যখনই কোনো ব্যবহারকারী কোনো প্ল্যাটফর্মের সাথে ইন্টারঅ্যাক্ট করে (যেমন কোনো বাটনে ক্লিক করলে $1$ এবং তা উপেক্ষা করলে $0$), সেই ইন্টারঅ্যাকশনটি একটি বিশুদ্ধ Bernoulli পরীক্ষা। প্রযুক্তি প্রতিষ্ঠানগুলো কোন ইন্টারফেস ভার্সনটি উচ্চতর প্রত্যাশিত মান প্রদান করে তা নির্ধারণ করতে এই পরীক্ষাগুলোকে একত্রিত করে।
+    \item \purplehighlight{Binary Cross-Entropy Loss:} নিউরাল নেটওয়ার্ককে প্রশিক্ষণ দিতে ব্যবহৃত প্রমিত লস ফাংশনটি সরাসরি Bernoulli লাইকলিহুড ফাংশন থেকে উদ্ভূত। পর্যবেক্ষণকৃত বাইনারি ডেটার লাইকলিহুড সর্বোচ্চ করার মাধ্যমে, AI তার ওয়েটগুলো সামঞ্জস্য করতে "শেখে"।
+\end{itemize}
+
+\section*{ভুল ধারণার কারণে ভুল সিদ্ধান্ত}
+একটি সাধারণ পরিসংখ্যানগত ভুল ধারণা হলো সমমিত সম্ভাবনা ($50/50$) নিরাপত্তা দেয় মনে করা। গাণিতিকভাবে, ঠিক এর বিপরীতটি সত্য। একজন পরিসংখ্যানবিদের কাছে, \purplehighlight{পূর্বাভাসযোগ্যতাই হলো নিরাপত্তা}। ফলাফল নিশ্চিত সাফল্য হোক বা নিশ্চিত ব্যর্থতা হোক, ভেদাঙ্ক শূন্যের কাছাকাছি পৌঁছায় এবং গাণিতিক কাঠামোর "ঘূর্ণন প্রতিরোধ" স্থিতিশীল হয় \cite{shannon1948}।
+
+বিশাল ডেটাসেট এবং জটিল মডেলিংয়ের মাধ্যমে ভেদাঙ্ক হ্রাস করে, আধুনিক AI সিস্টেমগুলো মূলত ফলক্রামের চারপাশে ভৌত ব্যবস্থাটিকে দৃঢ়ভাবে আবদ্ধ করে। পরিশেষে, এই প্রযুক্তিগুলোর ভিত্তিগত পরিসংখ্যানগত বলবিদ্যায় দক্ষতা অর্জনের জন্য জটিল সূত্রের মুখস্থবিদ্যার প্রয়োজন হয় না; এর জন্য প্রয়োজন জ্যামিতিক স্থানে সিস্টেম কীভাবে স্বাভাবিকভাবে ভারসাম্য রক্ষা করে সে সম্পর্কে একটি মজবুত দৃশ্যমান অন্তর্দৃষ্টি তৈরি করা।
+
+% --- Cited References Section ---
+\renewcommand{\refname}{\color{emerald} উদ্ধৃত রেফারেন্সসমূহ}
+\begin{thebibliography}{9}
+
+\bibitem{shannon1948}
+Claude E. Shannon, \textit{A Mathematical Theory of Communication}, Bell System Technical Journal, vol. 27, pp. 379--423, 1948.
+
+\bibitem{goodfellow2016}
+Ian Goodfellow, Yoshua Bengio, and Aaron Courville, \textit{Deep Learning}, MIT Press, 2016.
+
+\bibitem{feller1968}
+William Feller, \textit{An Introduction to Probability Theory and Its Applications}, Vol. 1, 3rd Edition, John Wiley \& Sons, 1968.
+
+\end{thebibliography}
+
+\end{document}
