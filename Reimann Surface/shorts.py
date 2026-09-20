@@ -50,9 +50,7 @@ class NegativeOneToPiIntro(VoiceoverScene, ThreeDScene):
         self.play(Indicate(gen_log, color=FOURTHCOLOR))
         self.play(FadeOut(gen_title), FadeOut(gen_log), run_time=1.5)
 
-        # ----------------------------------------------------------------
         # The Riemann Surface Geometry (3D Spiral / Helix)
-        # ----------------------------------------------------------------
         riemann_text = Text(
             "The Riemann Surface of ln(z)",
             font_size=32,
