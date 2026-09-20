@@ -7,9 +7,9 @@ import numpy as np
 
 class NegativeOneToPiIntro(VoiceoverScene, ThreeDScene):
     def construct(self):
-        # ----------------------------------------------------------------
+      
         # 0. Global Setup & Color Palette
-        # ----------------------------------------------------------------
+      
         self.camera.background_color = "#1A1C20"  # Dark Slate Background
         self.set_speech_service(GTTSService(lang="en"))
 
@@ -42,9 +42,9 @@ class NegativeOneToPiIntro(VoiceoverScene, ThreeDScene):
             self.wait(4)
             self.play(FadeOut(inf_sign))
 
-        # ----------------------------------------------------------------
+      
         # Scene 2: The Function f(x) = (-1)^x
-        # ----------------------------------------------------------------
+      
         func_def = MathTex("f(x) = (-1)^x", font_size=56, color=COLOR_WHITE).to_edge(UP, buff=1)
         
         with self.voiceover(
@@ -76,9 +76,9 @@ class NegativeOneToPiIntro(VoiceoverScene, ThreeDScene):
             self.play(Indicate(half_case, color=COLOR_WHITE))
             self.play(FadeOut(even_case), FadeOut(odd_case), FadeOut(half_case), run_time=1.5)
 
-        # ----------------------------------------------------------------
+      
         # Scene 3: Approximating 5^pi (The Real Way)
-        # ----------------------------------------------------------------
+      
         real_q = MathTex("f(\\pi) = (-1)^{\\pi} = ?", font_size=56, color=COLOR_GOLD).next_to(func_def, DOWN, buff=0.8)
         
         with self.voiceover(
@@ -121,9 +121,9 @@ class NegativeOneToPiIntro(VoiceoverScene, ThreeDScene):
             self.play(Write(limit_val), run_time=5)
             self.play(FadeOut(five_pi), FadeOut(approx_group), FadeOut(limit_val), run_time=1.5)
 
-        # ----------------------------------------------------------------
+      
         # Scene 4: The Method Collapses for (-1)^pi
-        # ----------------------------------------------------------------
+      
         neg_pi = MathTex("(-1)^{\\pi}", font_size=56, color=COLOR_MAGENTA).move_to(UP * 1.5)
 
         with self.voiceover(
@@ -166,9 +166,9 @@ class NegativeOneToPiIntro(VoiceoverScene, ThreeDScene):
         ):
             self.play(FadeOut(neg_pi), FadeOut(neg_approx_1), FadeOut(neg_approx_2), run_time=2)
 
-        # ----------------------------------------------------------------
+      
         # Scene 5: Euler's Formula
-        # ----------------------------------------------------------------
+      
         euler_eq = MathTex("e^{i\\pi} = -1", font_size=60, color=COLOR_GOLD).move_to(UP * 1.5)
 
         with self.voiceover(
@@ -201,9 +201,9 @@ class NegativeOneToPiIntro(VoiceoverScene, ThreeDScene):
         ):
             self.play(FadeOut(euler_eq), FadeOut(euler_extended), run_time=2)
 
-        # ----------------------------------------------------------------
+      
         # Scene 6: Complex Logarithm & Definition of a^b 
-        # ----------------------------------------------------------------
+      
         gen_title = MathTex("a^b = e^{b \\ln(a)}", font_size=56, color=COLOR_CYAN).move_to(UP * 1.5)
 
         with self.voiceover(
@@ -234,9 +234,9 @@ class NegativeOneToPiIntro(VoiceoverScene, ThreeDScene):
         ):
             self.play(log_def.animate.set_color(COLOR_CYAN), run_time=1.5)
 
-        # ----------------------------------------------------------------
+      
         # Scene 7: Deriving (-1)^\pi & Purely Imaginary Exponent Magnitude
-        # ----------------------------------------------------------------
+      
         eval_pi = MathTex(
             "(-1)^{\\pi} = e^{\\pi \\ln(-1)} = e^{i \\pi^2 (1 + 2k)}",
             font_size=48,
@@ -275,9 +275,9 @@ class NegativeOneToPiIntro(VoiceoverScene, ThreeDScene):
 
         self.play(FadeOut(eval_pi), FadeOut(unit_mag), run_time=1.5)
 
-        # ----------------------------------------------------------------
+      
         # Scene 8: 3D Visualization of Dense Points on the Complex Circle
-        # ----------------------------------------------------------------
+      
         complex_plane = ComplexPlane(
             x_range=[-2, 2, 1],
             y_range=[-2, 2, 1],
@@ -326,9 +326,9 @@ class NegativeOneToPiIntro(VoiceoverScene, ThreeDScene):
         self.move_camera(phi=0, theta=-90 * DEGREES, run_time=2)
         self.play(FadeOut(dense_dots), FadeOut(complex_plane), FadeOut(unit_circle), run_time=1.5)
 
-        # ----------------------------------------------------------------
+      
         # Scene 9: Principal Value (k = 0) Convention & Conclusion
-        # ----------------------------------------------------------------
+      
         principal_header = Text("Principal Value (k = 0)", font_size=36, color=COLOR_GOLD).to_edge(UP, buff=0.8)
 
         principal_eq = MathTex(
